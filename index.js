@@ -4,12 +4,15 @@
 // apppend elements
 // read
 // create a child element
-// .then
+// .then / callback
+// allow for external control over text speed
 
 // DONEs
 // -------------------
 // write
 // create a stack function
+// set speed
+// new line
 
 
 
@@ -32,10 +35,10 @@ function StoryTeller(element){
         // adds a write operation to the stack
         this.write = function(text) {
             // push to the stack the function and params
-            this.stack.push([this.Render, text])
+            this.stack.push([Render, text])
     
             // if the stack is not running, start the stack
-            if (!this.running) this.Run();
+            if (!this.running) Run();
     
             return this;
         }
@@ -43,10 +46,10 @@ function StoryTeller(element){
         // adds a wait operation to the stack
         this.wait = function(time) {
             // push to the stack the function and params
-            this.stack.push([this.Pause, time])
+            this.stack.push([Pause, time])
     
             // if the stack is not running, start the stack
-            if (!this.running) this.Run();
+            if (!this.running) Run();
     
             return this;
         }
@@ -61,16 +64,26 @@ function StoryTeller(element){
         // write elements to the stack
         this.speed = function(speed) {
             // push to the stack the function and params
-            this.stack.push([this.SetSpeed, speed])
+            this.stack.push([SetSpeed, speed])
     
             // if the stack is not running, start the stack
-            if (!this.running) this.Run();
+            if (!this.running) Run();
+    
+            return this;
+        }
+
+        this.newLine = function() {
+            // push to the stack the function and params
+            this.stack.push([AddBreak, null])
+    
+            // if the stack is not running, start the stack
+            if (!this.running) Run();
     
             return this;
         }
     
         // executes the current operation on the stack
-        this.Run = function() {
+        var Run = () => {
             // If the running flag is false, set to true
             if (!this.running) this.running = true;
     
@@ -83,16 +96,17 @@ function StoryTeller(element){
     
         // increments the stack to the next operation.
         // Used for handling async operations.
-        this.Next = function() {
+        var Next = () => {
+            console.log(this)
             // increment step
             this.step ++;
     
             // executes the stack
-            this.Run();
+            Run();
         }
     
         // writes the text to the document
-        this.Render = (text, speed = this.textSpeed) => {
+        var Render = (text, speed = this.textSpeed) => {
             // splits the text and creates a timeout for each 
             // letter that appends the letter to the element
             // when the timer runs out
@@ -104,27 +118,37 @@ function StoryTeller(element){
                 // Next() on the next beat
                 if (i >= arr.length -1){
                     setTimeout(()=>{
-                       this.Next();
+                       Next();
                     }, speed * (i + 2));
                 }
             });
         }
         
         // creates a set timeout to pause the stack execution
-        this.Pause = (time) => {
+        var Pause = (time) => {
             // create a timeout for the calling of Next()
             setTimeout(()=>{
-                this.Next();
+                Next();
             }, time)
         }
     
         // sets the speed of Render execution
-        this.SetSpeed = (speed) => {
+        var SetSpeed = (speed) => {
             // update speed variable
             this.textSpeed = speed;
     
             // call next stack operation
-            this.Next();
+            Next();
+        }
+
+        // adds a line break (<br>) to the current element
+        var AddBreak = () => {
+            // create and append a <br> element to 
+            // the current element
+            this.element.appendChild(document.createElement('br'));
+
+            // call next stack operation
+            Next();
         }
     } 
 }
@@ -137,6 +161,10 @@ StoryTeller(document.getElementsByClassName('test')[0])
     .wait(1000)
     .write('my name is ')
     .speed(1000)
-    .write('... ')
+    .write('...')
     .speed(100)
-    .write('not important.')
+    .write(' not important.')
+    .newLine()
+    .write('What is important is that you follow my instructions.')
+    .speed(500)
+    .write('Exactly.')
