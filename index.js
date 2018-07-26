@@ -1,11 +1,10 @@
 // TODOs
 // -------------------
-// handle new elements
-// apppend elements
+// access to element style properties
 // read
-// create a child element
 // .then / callback
 // allow for external control over text speed
+// auto scroll for chat like additions
 
 // DONEs
 // -------------------
@@ -13,6 +12,8 @@
 // create a stack function
 // set speed
 // new line
+// handle new elements
+// handle nested element
 
 
 
@@ -25,6 +26,9 @@ function StoryTeller(element){
     
         // variables for execution options
         this.textSpeed = 100;
+        this.styles = {
+            color: 'black'
+        };
     
         // variables for the stack state
         this.step = 0;
@@ -94,6 +98,16 @@ function StoryTeller(element){
         this.newNestedElement = function(newNestedElement) {
             // push to the stack the function and params
             this.stack.push([CreateNewNestedElement, newNestedElement])
+    
+            // if the stack is not running, start the stack
+            if (!this.running) Run();
+    
+            return this;
+        }
+
+        this.changeTextColor = function(textColor) {
+            // push to the stack the function and params
+            this.stack.push([ChangeTextColor, textColor])
     
             // if the stack is not running, start the stack
             if (!this.running) Run();
@@ -203,6 +217,19 @@ function StoryTeller(element){
                 Next();
             })
         }
+
+        var ChangeTextColor = (textColor) => {
+            setTimeout(() => {
+                // update color variable
+                this.styles.color = textColor;
+
+                // sets the color property of the current element
+                this.elements[this.elements.length - 1].style.color = textColor;
+    
+                // call next stack operation
+                Next();
+            }, 0)
+        }
     } 
 }
 
@@ -228,4 +255,6 @@ StoryTeller(document.getElementsByClassName('test')[0])
     .newLine()
     .newLine()
     .newElement('p')
+    .changeTextColor('blue')
     .write('Connecting to remote terminal...')
+    .changeTextColor('green')
