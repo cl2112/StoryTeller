@@ -21,8 +21,7 @@ function StoryTeller(element){
 
     function Story(element) {
         // variables for the element nesting
-        this.element = element;
-        this.parentElement = null;
+        this.elements = [element];
     
         // variables for execution options
         this.textSpeed = 100;
@@ -81,6 +80,26 @@ function StoryTeller(element){
     
             return this;
         }
+
+        this.newElement = function(newElement) {
+            // push to the stack the function and params
+            this.stack.push([CreateNewElement, newElement])
+    
+            // if the stack is not running, start the stack
+            if (!this.running) Run();
+    
+            return this;
+        }
+
+        this.newNestedElement = function(newNestedElement) {
+            // push to the stack the function and params
+            this.stack.push([CreateNewNestedElement, newNestedElement])
+    
+            // if the stack is not running, start the stack
+            if (!this.running) Run();
+    
+            return this;
+        }
     
         // executes the current operation on the stack
         var Run = () => {
@@ -97,7 +116,6 @@ function StoryTeller(element){
         // increments the stack to the next operation.
         // Used for handling async operations.
         var Next = () => {
-            console.log(this)
             // increment step
             this.step ++;
     
@@ -112,7 +130,7 @@ function StoryTeller(element){
             // when the timer runs out
             text.split('').forEach((v, i, arr)=>{
                 setTimeout(()=>{
-                    this.element.innerHTML += v;
+                    this.elements[this.elements.length - 1].innerHTML += v;
                 }, speed * (i + 1));
                 // If the last timeout has been created call
                 // Next() on the next beat
@@ -134,21 +152,56 @@ function StoryTeller(element){
     
         // sets the speed of Render execution
         var SetSpeed = (speed) => {
-            // update speed variable
-            this.textSpeed = speed;
+            setTimeout(() => {
+                // update speed variable
+                this.textSpeed = speed;
     
-            // call next stack operation
-            Next();
+                // call next stack operation
+                Next();
+            }, 0)
         }
 
         // adds a line break (<br>) to the current element
         var AddBreak = () => {
-            // create and append a <br> element to 
-            // the current element
-            this.element.appendChild(document.createElement('br'));
+            setTimeout(() => {
+                // create and append a <br> element to 
+                // the current element
+                this.elements[this.elements.length - 1].appendChild(document.createElement('br'));
 
-            // call next stack operation
-            Next();
+                // call next stack operation
+                Next();
+            })
+        }
+
+        var CreateNewElement = (newElement) => {
+            setTimeout(() => {
+                // Creates a new element and appends it to the document
+                const el = this.elements[this.elements.length - 2].appendChild(document.createElement(newElement));
+
+                // removes the last element
+                this.elements.pop();
+
+                // adds the newly created element to the array of
+                // elements
+                this.elements.push(el);
+
+                // call next stack operation
+                Next();
+            })
+        }
+
+        var CreateNewNestedElement = (newElement) => {
+            setTimeout(() => {
+                // Creates a new element and appends it to the document
+                const el = this.elements[this.elements.length - 1].appendChild(document.createElement(newElement));
+
+                // adds the newly created element to the array of
+                // elements
+                this.elements.push(el);
+
+                // call next stack operation
+                Next();
+            })
         }
     } 
 }
@@ -157,6 +210,7 @@ function StoryTeller(element){
 
 
 StoryTeller(document.getElementsByClassName('test')[0])
+    .newNestedElement('h2')
     .write('Hello, ')
     .wait(1000)
     .write('my name is ')
@@ -167,4 +221,11 @@ StoryTeller(document.getElementsByClassName('test')[0])
     .newLine()
     .write('What is important is that you follow my instructions.')
     .speed(500)
+    .newLine()
+    .newElement('h3')
     .write('Exactly.')
+    .speed(100)
+    .newLine()
+    .newLine()
+    .newElement('p')
+    .write('Connecting to remote terminal...')
