@@ -32,20 +32,20 @@ StoryTeller(element)
 const element = document.getElementById('story');
 
 StoryTeller(element)
-.write('Hello! ')
-.wait(1000)
-.write('How are you today?')
+    .write('Hello! ')
+    .wait(1000)
+    .write('How are you today?')
 ```
 
 ## API
-## `.write( string )`
+### `.write( string )`
 >`.write()` renders text to the element.
 ``` javascript
 StoryTeller(element)
     .write('Here is some text. And here is some more.')
 ```
 
-## `.wait( number )`
+### `.wait( number )`
 >`.wait()` pauses the sequence for a given time. The number entered is how long to wait in milliseconds. _(1 second = 1000 milliseconds)_
 ``` javascript
 StoryTeller(element)
@@ -54,7 +54,7 @@ StoryTeller(element)
     .write('OK. Done.')
 ```
 
-## `.newLine()`
+### `.newLine()`
 >`.newLine()` creates a new line by adding a `<br>` element.
 ``` javascript
 StoryTeller(element)
@@ -66,7 +66,7 @@ StoryTeller(element)
     .write('Meh.')
 ```
 
-## `.speed( number )`
+### `.speed( number )`
 >`.speed()` sets the rate of speed that the text renders to the element. The number entered is the time between each character in milliseconds. _The default speed is 50 milliseconds._
 ``` javascript
 StoryTeller(element)
@@ -77,7 +77,7 @@ StoryTeller(element)
     .write('Woah. I need coffee. A lot of coffee.')
 ```
 
-## `.textColor( string )`
+### `.textColor( string )`
 >`.textColor()` changes the text color of the text rendered. 
 _Accepts all valid css color properties, like 'rgb(255,255,255)', 'red', and '#000000'._
 ``` javascript
