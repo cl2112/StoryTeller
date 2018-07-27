@@ -1,5 +1,6 @@
 // TODOs
 // -------------------
+// back up to previous element
 // access to element style properties
 // read
 // .then / callback
@@ -10,6 +11,8 @@
 // highlights
 // options/defaults
 // decide on how to handle create newElement on the base element. Automatically nest? search for the parent of the entry point?
+// create a selector like jquery or let the user handle it?
+// ability to call or pass stack to another instance of StoryTeller
 
 
 // DONEs
@@ -31,7 +34,7 @@ function StoryTeller(element){
         this.elements = [element];
     
         // variables for execution options
-        this.textSpeed = 100;
+        this.textSpeed = 50;
         this.styles = {
             color: 'black'
         };
@@ -238,29 +241,3 @@ function StoryTeller(element){
         }
     } 
 }
-
-
-
-
-StoryTeller(document.getElementsByClassName('test')[0])
-    .newNestedElement('h2')
-    // .write('Hello, ')
-    // .wait(1000)
-    // .write('my name is ')
-    // .speed(1000)
-    // .write('...')
-    // .speed(100)
-    // .write(' not important.')
-    // .newLine()
-    // .write('What is important is that you follow my instructions.')
-    // .speed(500)
-    // .newLine()
-    .newElement('h3')
-    .write('Exactly.')
-    .speed(100)
-    .newLine()
-    .newLine()
-    .newElement('p')
-    .changeTextColor('blue')
-    .write('Connecting to remote terminal...')
-    .changeTextColor('#871187')
