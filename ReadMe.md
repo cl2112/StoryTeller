@@ -46,7 +46,7 @@ StoryTeller(element)
 ```
 
 ### `.wait( number )`
->`.wait()` pauses the sequence for a given time. The number entered is how long to wait in milliseconds. _(1 second = 1000 milliseconds)_
+>`.wait()` pauses the sequence for a given time. The number entered is how long to wait in milliseconds.<br> _(1 second = 1000 milliseconds)_
 ``` javascript
 StoryTeller(element)
     .write('Sorry, one second... ')
@@ -67,7 +67,7 @@ StoryTeller(element)
 ```
 
 ### `.speed( number )`
->`.speed()` sets the rate of speed that the text renders to the element. The number entered is the time between each character in milliseconds. _The default speed is 50 milliseconds._
+>`.speed()` sets the rate of speed that the text renders to the element. The number entered is the time between each character in milliseconds.<br> _The default speed is 50 milliseconds._
 ``` javascript
 StoryTeller(element)
     .speed(10)
@@ -78,7 +78,7 @@ StoryTeller(element)
 ```
 
 ### `.textColor( string )`
->`.textColor()` changes the text color of the text rendered. 
+>`.textColor()` changes the text color of the text rendered. <br>
 _Accepts all valid css color properties, like 'rgb(255,255,255)', 'red', and '#000000'._
 ``` javascript
 StoryTeller(element)
