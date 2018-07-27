@@ -86,7 +86,7 @@ StoryTeller(element)
     .write('This line is red.')
     .newLine()
     .textColor('rgb(0,128,0)')
-    .write('This line is green.)
+    .write('This line is green.')
     .newLine()
     .textColor('#0000ff')
     .write('This line is blue.');
