@@ -5,6 +5,12 @@
 // .then / callback
 // allow for external control over text speed
 // auto scroll for chat like additions
+// prepend option for creating newElement
+// speed option for a write call that applies only to that call, then reverts
+// highlights
+// options/defaults
+// decide on how to handle create newElement on the base element. Automatically nest? search for the parent of the entry point?
+
 
 // DONEs
 // -------------------
@@ -238,17 +244,17 @@ function StoryTeller(element){
 
 StoryTeller(document.getElementsByClassName('test')[0])
     .newNestedElement('h2')
-    .write('Hello, ')
-    .wait(1000)
-    .write('my name is ')
-    .speed(1000)
-    .write('...')
-    .speed(100)
-    .write(' not important.')
-    .newLine()
-    .write('What is important is that you follow my instructions.')
-    .speed(500)
-    .newLine()
+    // .write('Hello, ')
+    // .wait(1000)
+    // .write('my name is ')
+    // .speed(1000)
+    // .write('...')
+    // .speed(100)
+    // .write(' not important.')
+    // .newLine()
+    // .write('What is important is that you follow my instructions.')
+    // .speed(500)
+    // .newLine()
     .newElement('h3')
     .write('Exactly.')
     .speed(100)
@@ -257,4 +263,4 @@ StoryTeller(document.getElementsByClassName('test')[0])
     .newElement('p')
     .changeTextColor('blue')
     .write('Connecting to remote terminal...')
-    .changeTextColor('green')
+    .changeTextColor('#871187')
