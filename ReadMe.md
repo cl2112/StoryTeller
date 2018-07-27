@@ -42,39 +42,39 @@ StoryTeller(element)
 >`.write()` renders text to the element.
 ``` javascript
 StoryTeller(element)
-.write('Here is some text. And here is some more.')
+    .write('Here is some text. And here is some more.')
 ```
 
 ## `.wait( number )`
 >`.wait()` pauses the sequence for a given time. The number entered is how long to wait in milliseconds. _(1 second = 1000 milliseconds)_
 ``` javascript
 StoryTeller(element)
-.write('Sorry, one second... ')
-.wait(1000)
-.write('OK. Done.')
+    .write('Sorry, one second... ')
+    .wait(1000)
+    .write('OK. Done.')
 ```
 
 ## `.newLine()`
 >`.newLine()` creates a new line by adding a `<br>` element.
 ``` javascript
 StoryTeller(element)
-.write('Here is one line of text.')
-.newLine()
-.write('And here is another line of text. Neat huh.')
-.wait(2000)
-.newLine()
-.write('Meh.')
+    .write('Here is one line of text.')
+    .newLine()
+    .write('And here is another line of text. Neat huh.')
+    .wait(2000)
+    .newLine()
+    .write('Meh.')
 ```
 
 ## `.speed( number )`
 >`.speed()` sets the rate of speed that the text renders to the element. The number entered is the time between each character in milliseconds. _The default speed is 50 milliseconds._
 ``` javascript
 StoryTeller(element)
-.speed(10)
-.write('Woah! I need to lay off the coffee.')
-.newLine()
-.speed(500)
-.write('Woah. I need coffee. A lot of coffee.')
+    .speed(10)
+    .write('Woah! I need to lay off the coffee.')
+    .newLine()
+    .speed(500)
+    .write('Woah. I need coffee. A lot of coffee.')
 ```
 
 ## `.textColor( string )`
