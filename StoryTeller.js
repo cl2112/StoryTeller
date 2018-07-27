@@ -114,7 +114,7 @@ function StoryTeller(element){
             return this;
         }
 
-        this.changeTextColor = function(textColor) {
+        this.textColor = function(textColor) {
             // push to the stack the function and params
             this.stack.push([ChangeTextColor, textColor])
     
